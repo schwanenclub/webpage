@@ -13,6 +13,7 @@ const InternDashboard = () => import('../views/InternDashboard.vue')
 const InternAnwesenheit = () => import('../views/InternAnwesenheit.vue')
 const InternDokumente = () => import('../views/InternDokumente.vue')
 const InternPasswort = () => import('../views/InternPasswort.vue')
+const InternAntraege = () => import('../views/InternAntraege.vue')
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
@@ -29,6 +30,7 @@ const routes = [
             { path: 'anwesenheit', name: 'InternAnwesenheit', component: InternAnwesenheit },
             { path: 'dokumente', name: 'InternDokumente', component: InternDokumente },
             { path: 'passwort', name: 'InternPasswort', component: InternPasswort },
+            { path: 'antraege', name: 'InternAntraege', component: InternAntraege },
         ],
     },
 ]
