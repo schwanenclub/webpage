@@ -11,8 +11,48 @@
     <section class="section">
       <div class="container">
         <div class="login-card card fade-in">
+          <!-- Force password change -->
+          <div v-if="user && mustChange" class="change-pw">
+            <span class="login-icon">🔑</span>
+            <h3>Passwort ändern</h3>
+            <p class="login-desc">
+              Du verwendest noch das Standardpasswort. Bitte wähle ein neues Passwort.
+            </p>
+            <form @submit.prevent="handleChangePassword" class="login-form">
+              <div class="form-group">
+                <label for="newPw">Neues Passwort</label>
+                <input
+                  id="newPw"
+                  v-model="newPassword"
+                  type="password"
+                  placeholder="Mindestens 6 Zeichen"
+                  required
+                  minlength="6"
+                  :disabled="sending"
+                />
+              </div>
+              <div class="form-group">
+                <label for="confirmPw">Passwort bestätigen</label>
+                <input
+                  id="confirmPw"
+                  v-model="confirmPassword"
+                  type="password"
+                  placeholder="Passwort wiederholen"
+                  required
+                  minlength="6"
+                  :disabled="sending"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary" style="width: 100%" :disabled="sending">
+                {{ sending ? 'Speichern...' : 'Passwort speichern' }}
+              </button>
+            </form>
+            <p v-if="error" class="error-msg">{{ error }}</p>
+            <p v-if="success" class="success-msg">{{ success }}</p>
+          </div>
+
           <!-- Already logged in -->
-          <div v-if="user" class="logged-in">
+          <div v-else-if="user" class="logged-in">
             <span class="login-icon">✅</span>
             <h3>Willkommen zurück!</h3>
             <p>Du bist angemeldet als <strong>{{ user.email }}</strong></p>
@@ -69,17 +109,25 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '../firebase'
+import { ref, watch } from 'vue'
+import { signInWithEmailAndPassword, updatePassword } from 'firebase/auth'
+import { doc, updateDoc } from 'firebase/firestore'
+import { auth, db } from '../firebase'
 import { useAuth } from '../composables/useAuth'
 
-const { user, logout } = useAuth()
+const { user, userProfile, mustChangePassword, logout } = useAuth()
 
 const email = ref('')
 const password = ref('')
+const newPassword = ref('')
+const confirmPassword = ref('')
 const sending = ref(false)
 const error = ref('')
+const success = ref('')
+const mustChange = ref(false)
+
+// Watch for mustChangePassword from profile
+watch(mustChangePassword, (val) => { mustChange.value = val }, { immediate: true })
 
 async function handleLogin() {
   sending.value = true
@@ -96,6 +144,35 @@ async function handleLogin() {
     } else {
       error.value = 'Fehler bei der Anmeldung. Bitte versuche es erneut.'
     }
+  } finally {
+    sending.value = false
+  }
+}
+
+async function handleChangePassword() {
+  if (newPassword.value !== confirmPassword.value) {
+    error.value = 'Passwörter stimmen nicht überein.'
+    return
+  }
+  if (newPassword.value.length < 6) {
+    error.value = 'Passwort muss mindestens 6 Zeichen lang sein.'
+    return
+  }
+
+  sending.value = true
+  error.value = ''
+  success.value = ''
+
+  try {
+    await updatePassword(auth.currentUser, newPassword.value)
+    await updateDoc(doc(db, 'members', auth.currentUser.uid), {
+      mustChangePassword: false,
+    })
+    mustChange.value = false
+    success.value = 'Passwort erfolgreich geändert!'
+  } catch (err) {
+    console.error(err)
+    error.value = 'Fehler beim Ändern des Passworts. Bitte versuche es erneut.'
   } finally {
     sending.value = false
   }
@@ -197,6 +274,13 @@ async function handleLogin() {
 
 .logged-in {
   padding: 1rem 0;
+}
+
+.success-msg {
+  color: var(--color-primary);
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }
 
 .login-actions {

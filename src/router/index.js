@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getAuth, onAuthStateChanged } from 'firebase/auth'
+import { doc, getDoc } from 'firebase/firestore'
+import { getFirestore } from 'firebase/firestore'
 import Home from '../views/Home.vue'
 
 const News = () => import('../views/News.vue')
@@ -10,6 +12,7 @@ const InternLayout = () => import('../views/InternLayout.vue')
 const InternDashboard = () => import('../views/InternDashboard.vue')
 const InternAnwesenheit = () => import('../views/InternAnwesenheit.vue')
 const InternDokumente = () => import('../views/InternDokumente.vue')
+const InternPasswort = () => import('../views/InternPasswort.vue')
 
 const routes = [
     { path: '/', name: 'Home', component: Home },
@@ -25,6 +28,7 @@ const routes = [
             { path: '', name: 'InternDashboard', component: InternDashboard },
             { path: 'anwesenheit', name: 'InternAnwesenheit', component: InternAnwesenheit },
             { path: 'dokumente', name: 'InternDokumente', component: InternDokumente },
+            { path: 'passwort', name: 'InternPasswort', component: InternPasswort },
         ],
     },
 ]
@@ -53,6 +57,18 @@ router.beforeEach(async (to) => {
         const user = await getCurrentUser()
         if (!user) {
             return { name: 'Login', query: { redirect: to.fullPath } }
+        }
+        // Check if user must change password
+        if (to.name !== 'InternPasswort') {
+            try {
+                const db = getFirestore()
+                const profileDoc = await getDoc(doc(db, 'members', user.uid))
+                if (profileDoc.exists() && profileDoc.data().mustChangePassword === true) {
+                    return { name: 'InternPasswort' }
+                }
+            } catch {
+                // continue if Firestore check fails
+            }
         }
     }
 })

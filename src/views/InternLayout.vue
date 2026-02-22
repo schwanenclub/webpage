@@ -22,6 +22,10 @@
           <span class="sidebar-icon">📁</span>
           Dokumente
         </router-link>
+        <router-link to="/intern/passwort" class="sidebar-link" @click="sidebarOpen = false">
+          <span class="sidebar-icon">🔑</span>
+          Passwort ändern
+        </router-link>
       </nav>
 
       <div class="sidebar-footer">

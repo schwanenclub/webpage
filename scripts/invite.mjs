@@ -1,11 +1,10 @@
 // Invite script: creates a member account and adds profile to Firestore
 // Usage: node scripts/invite.mjs <email> [name] [role]
-// A random password is generated and displayed — share it with the member.
-
-import { randomBytes } from 'crypto'
+// All new members get the default password and must change it on first login.
 
 const API_KEY = 'AIzaSyBM-fzZfE9zh7LXssFYsLiirs7vBxeAfGk'
 const PROJECT_ID = 'schwanenclub-web'
+const DEFAULT_PASSWORD = 'Schwanen2026'
 
 const email = process.argv[2]
 const name = process.argv[3] || email.split('@')[0]
@@ -14,10 +13,6 @@ const role = process.argv[4] || 'member'
 if (!email) {
     console.error('Usage: node scripts/invite.mjs <email> [name] [role]')
     process.exit(1)
-}
-
-function generatePassword() {
-    return randomBytes(6).toString('base64url') // ~8 chars, URL-safe
 }
 
 async function getAccessToken() {
@@ -44,8 +39,6 @@ async function getAccessToken() {
 }
 
 async function main() {
-    const password = generatePassword()
-
     // 1. Create Firebase Auth user
     console.log(`👤 Creating account for ${email}...`)
     const signUpRes = await fetch(
@@ -55,7 +48,7 @@ async function main() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 email,
-                password,
+                password: DEFAULT_PASSWORD,
                 returnSecureToken: true,
             }),
         }
@@ -77,6 +70,7 @@ async function main() {
             email: { stringValue: email },
             name: { stringValue: name },
             role: { stringValue: role },
+            mustChangePassword: { booleanValue: true },
             createdAt: { stringValue: new Date().toISOString() },
         },
     }
@@ -103,7 +97,8 @@ async function main() {
     console.log('\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
     console.log('🦢 Share these credentials:')
     console.log(`   E-Mail:    ${email}`)
-    console.log(`   Passwort:  ${password}`)
+    console.log(`   Passwort:  ${DEFAULT_PASSWORD}`)
+    console.log('   (Muss beim ersten Login geändert werden)')
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━')
 }
 

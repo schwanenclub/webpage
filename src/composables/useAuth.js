@@ -7,6 +7,7 @@ const user = ref(null)
 const userProfile = ref(null)
 const loading = ref(true)
 const isAdmin = ref(false)
+const mustChangePassword = ref(false)
 
 export function useAuth() {
     onMounted(() => {
@@ -17,8 +18,10 @@ export function useAuth() {
                 try {
                     const profileDoc = await getDoc(doc(db, 'members', firebaseUser.uid))
                     if (profileDoc.exists()) {
-                        userProfile.value = profileDoc.data()
-                        isAdmin.value = profileDoc.data().role === 'admin'
+                        const data = profileDoc.data()
+                        userProfile.value = data
+                        isAdmin.value = data.role === 'admin'
+                        mustChangePassword.value = data.mustChangePassword === true
                     }
                 } catch {
                     console.error('Could not load profile')
@@ -26,6 +29,7 @@ export function useAuth() {
             } else {
                 userProfile.value = null
                 isAdmin.value = false
+                mustChangePassword.value = false
             }
             loading.value = false
         })
@@ -36,6 +40,7 @@ export function useAuth() {
         user.value = null
         userProfile.value = null
         isAdmin.value = false
+        mustChangePassword.value = false
     }
 
     return {
@@ -43,6 +48,7 @@ export function useAuth() {
         userProfile,
         loading,
         isAdmin,
+        mustChangePassword,
         logout,
     }
 }

@@ -3,9 +3,12 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Members collection: authenticated users can read their own profile
+    // Members collection: authenticated users can read, admins can write
+    // Members can update their own mustChangePassword field
     match /members/{memberId} {
       allow read: if request.auth != null;
+      allow update: if request.auth != null && request.auth.uid == memberId
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['mustChangePassword']);
       allow write: if request.auth != null &&
         get(/databases/$(database)/documents/members/$(request.auth.uid)).data.role == 'admin';
     }
