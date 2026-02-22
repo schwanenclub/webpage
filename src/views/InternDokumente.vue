@@ -297,7 +297,7 @@ function formatSize(bytes) {
 }
 
 .docs-header h3 {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);

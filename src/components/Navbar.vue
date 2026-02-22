@@ -2,7 +2,7 @@
   <nav class="navbar" :class="{ scrolled: isScrolled }">
     <div class="nav-container">
       <router-link to="/" class="nav-logo">
-        <span class="logo-icon">🦢</span>
+        <img src="/Schwanen-Logo.jpg.jpeg" alt="Schwanen Club" class="logo-img" />
         <div class="logo-text">
           <span class="logo-name">Schwanen Club</span>
           <span class="logo-since">seit 2015</span>
@@ -98,8 +98,10 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   color: var(--color-text);
 }
 
-.logo-icon {
-  font-size: 2rem;
+.logo-img {
+  height: 44px;
+  width: auto;
+  object-fit: contain;
 }
 
 .logo-text {

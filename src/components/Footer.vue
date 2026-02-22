@@ -4,7 +4,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="footer-logo">
-            <span class="logo-icon">🦢</span>
+            <img src="/Schwanen-Logo.jpg.jpeg" alt="Schwanen Club" class="footer-logo-img" />
             <span class="logo-name">Schwanen Club</span>
           </div>
           <p>Seit 2015 in Zürich. Gemeinschaft, Spass und unvergessliche Momente.</p>
@@ -67,8 +67,11 @@ const year = new Date().getFullYear()
   margin-bottom: 1rem;
 }
 
-.footer-logo .logo-icon {
-  font-size: 1.5rem;
+.footer-logo-img {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
 }
 
 .footer-logo .logo-name {
@@ -101,7 +104,7 @@ const year = new Date().getFullYear()
 
 .footer-links h4,
 .footer-contact h4 {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;

@@ -225,7 +225,7 @@ async function handleLogout() {
   color: var(--color-primary);
   cursor: pointer;
   text-align: left;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
 }
 
 .logout-btn:hover {
@@ -254,7 +254,7 @@ async function handleLogout() {
 
 .intern-header h2 {
   flex: 1;
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-text);

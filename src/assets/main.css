@@ -16,7 +16,8 @@
     --color-success: #2e7d32;
     --color-danger: #c62828;
     --font-display: 'Playfair Display', Georgia, serif;
-    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Playfair Display', Georgia, serif;
+    --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --radius: 12px;
     --radius-sm: 8px;
     --shadow: 0 4px 24px rgba(20, 67, 122, 0.10);
@@ -40,7 +41,7 @@ body {
     font-family: var(--font-body);
     background: var(--color-bg);
     color: var(--color-text);
-    line-height: 1.6;
+    line-height: 1.7;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -130,7 +131,7 @@ p {
     gap: 0.5rem;
     padding: 0.875rem 2rem;
     border-radius: var(--radius-sm);
-    font-family: var(--font-body);
+    font-family: var(--font-ui);
     font-weight: 500;
     font-size: 0.95rem;
     cursor: pointer;

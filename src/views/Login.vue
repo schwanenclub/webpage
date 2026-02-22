@@ -245,7 +245,7 @@ async function handleChangePassword() {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.95rem;
   transition: border-color var(--transition);
   outline: none;

@@ -17,7 +17,7 @@
           <router-link to="/kontakt" class="btn btn-outline">Kontakt</router-link>
         </div>
         <div class="hero-swan fade-in">
-          <img src="/2PawMmk.gif" alt="Swan" class="swan-gif" />
+          <img src="/Schwanen-Logo.jpg.jpeg" alt="Schwanen Club Logo" class="swan-logo" />
         </div>
       </div>
       <div class="hero-wappen-left fade-in">
@@ -159,12 +159,11 @@ const features = [
   justify-content: center;
 }
 
-.swan-gif {
-  width: 200px;
+.swan-logo {
+  width: 320px;
   height: auto;
   border-radius: var(--radius);
-  opacity: 0.8;
-  filter: drop-shadow(0 0 40px rgba(30, 95, 170, 0.15));
+  filter: drop-shadow(0 0 40px rgba(30, 95, 170, 0.2));
 }
 
 .hero-wappen-left {

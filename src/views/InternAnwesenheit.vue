@@ -224,7 +224,7 @@ async function toggleAttendance(member) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.9rem;
   cursor: pointer;
   outline: none;
@@ -256,7 +256,7 @@ async function toggleAttendance(member) {
 }
 
 .attendance-header h3 {
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 1rem;
   font-weight: 600;
   color: var(--color-text);
@@ -429,7 +429,7 @@ async function toggleAttendance(member) {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   color: var(--color-text);
-  font-family: var(--font-body);
+  font-family: var(--font-ui);
   font-size: 0.9rem;
   outline: none;
 }
