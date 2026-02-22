@@ -6,7 +6,7 @@
       <div class="hero-content container">
         <div class="hero-badge fade-in">
           <ZurichWappen :size="16" :opacity="0.8" />
-          EST. 2016 · ZÜRICH
+          EST. 2015 · ZÜRICH
         </div>
         <h1 class="fade-in">Schwanen<br /><span class="gold">Club</span></h1>
         <p class="hero-subtitle fade-in">
@@ -36,7 +36,7 @@
           <h2>Über Uns</h2>
           <div class="gold-line"></div>
           <p>
-            Der Schwanen Club wurde 2016 in Zürich gegründet und vereint Freunde,
+            Der Schwanen Club wurde 2015 in Zürich gegründet und vereint Freunde,
             die gemeinsam das Leben feiern — von legendären Festen bis zu
             gemütlichen Zusammenkünften.
           </p>

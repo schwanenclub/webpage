@@ -76,7 +76,7 @@ const posts = [
     tagClass: 'tag-update',
     title: '5 Jahre Schwanen Club!',
     excerpt:
-      'Wir feiern unser 5-jähriges Bestehen. Was 2016 klein begann, ist heute grösser denn je.',
+      'Wir feiern unser 5-jähriges Bestehen. Was 2015 klein begann, ist heute grösser denn je.',
   },
 ]
 </script>

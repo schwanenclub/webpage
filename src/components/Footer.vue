@@ -7,7 +7,7 @@
             <span class="logo-icon">🦢</span>
             <span class="logo-name">Schwanen Club</span>
           </div>
-          <p>Seit 2016 in Zürich. Gemeinschaft, Spass und unvergessliche Momente.</p>
+          <p>Seit 2015 in Zürich. Gemeinschaft, Spass und unvergessliche Momente.</p>
           <div class="footer-wappen">
             <ZurichWappen :size="28" variant="light" :opacity="0.7" />
             <span class="wappen-label">Stadt Zürich</span>

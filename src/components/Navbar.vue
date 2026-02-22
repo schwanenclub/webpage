@@ -5,7 +5,7 @@
         <span class="logo-icon">🦢</span>
         <div class="logo-text">
           <span class="logo-name">Schwanen Club</span>
-          <span class="logo-since">seit 2016</span>
+          <span class="logo-since">seit 2015</span>
         </div>
       </router-link>
 

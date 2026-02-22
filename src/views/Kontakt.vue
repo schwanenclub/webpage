@@ -28,7 +28,7 @@
             <div class="info-card card fade-in">
               <span class="info-icon">🦢</span>
               <h3>Gegründet</h3>
-              <p>2016 in Zürich</p>
+              <p>2015 in Zürich</p>
             </div>
           </div>
 
