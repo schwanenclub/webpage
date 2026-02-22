@@ -70,14 +70,15 @@ onUnmounted(() => window.removeEventListener('scroll', handleScroll))
   padding: 1.25rem 0;
   transition: all var(--transition);
   background: transparent;
+  border-top: 3px solid var(--color-primary);
 }
 
 .navbar.scrolled {
-  background: rgba(244, 247, 251, 0.95);
+  background: rgba(230, 238, 250, 0.95);
   backdrop-filter: blur(20px);
   padding: 0.75rem 0;
   border-bottom: 1px solid var(--color-border);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 16px rgba(30, 95, 170, 0.10);
 }
 
 .nav-container {

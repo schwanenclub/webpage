@@ -8,6 +8,10 @@
             <span class="logo-name">Schwanen Club</span>
           </div>
           <p>Seit 2016 in Zürich. Gemeinschaft, Spass und unvergessliche Momente.</p>
+          <div class="footer-wappen">
+            <ZurichWappen :size="28" variant="light" :opacity="0.7" />
+            <span class="wappen-label">Stadt Zürich</span>
+          </div>
         </div>
 
         <div class="footer-links">
@@ -35,15 +39,18 @@
 </template>
 
 <script setup>
+import ZurichWappen from './ZurichWappen.vue'
+
 const year = new Date().getFullYear()
 </script>
 
 <style scoped>
 .footer {
-  background: var(--color-surface);
-  border-top: 1px solid var(--color-border);
+  background: linear-gradient(135deg, #14437a 0%, #1e5faa 50%, #14437a 100%);
+  border-top: 3px solid var(--color-primary-light);
   padding: 4rem 0 2rem;
   margin-top: 4rem;
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .footer-grid {
@@ -68,13 +75,28 @@ const year = new Date().getFullYear()
   font-family: var(--font-display);
   font-size: 1.2rem;
   font-weight: 700;
-  color: var(--color-primary);
+  color: white;
 }
 
 .footer-brand p {
-  color: var(--color-text-dim);
+  color: rgba(255, 255, 255, 0.65);
   font-size: 0.9rem;
   max-width: 320px;
+}
+
+.footer-wappen {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.wappen-label {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
 }
 
 .footer-links h4,
@@ -83,7 +105,7 @@ const year = new Date().getFullYear()
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.6);
   margin-bottom: 1.25rem;
   font-weight: 600;
 }
@@ -97,29 +119,37 @@ const year = new Date().getFullYear()
 }
 
 .footer-links a {
-  color: var(--color-text-dim);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
 }
 
 .footer-links a:hover {
-  color: var(--color-primary);
+  color: white;
 }
 
 .footer-contact p {
-  color: var(--color-text-dim);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 0.9rem;
   margin-bottom: 0.5rem;
 }
 
+.footer-contact a {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.footer-contact a:hover {
+  color: white;
+}
+
 .footer-bottom {
-  border-top: 1px solid var(--color-border);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   padding-top: 2rem;
   text-align: center;
 }
 
 .footer-bottom p {
   font-size: 0.8rem;
-  color: var(--color-text-dim);
+  color: rgba(255, 255, 255, 0.45);
 }
 
 @media (max-width: 768px) {

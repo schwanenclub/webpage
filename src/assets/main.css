@@ -1,9 +1,9 @@
 /* ===== CSS Variables & Reset ===== */
 :root {
-    --color-bg: #f4f7fb;
+    --color-bg: #eef3fa;
     --color-bg-card: #ffffff;
-    --color-bg-card-hover: #f0f4fa;
-    --color-surface: #eaf0f9;
+    --color-bg-card-hover: #e8eff8;
+    --color-surface: #dde7f3;
     --color-primary: #1e5faa;
     --color-primary-light: #3a7ed5;
     --color-primary-dark: #14437a;
@@ -19,8 +19,8 @@
     --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     --radius: 12px;
     --radius-sm: 8px;
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.6);
+    --shadow: 0 4px 24px rgba(20, 67, 122, 0.10);
+    --shadow-lg: 0 8px 48px rgba(20, 67, 122, 0.14);
     --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -116,9 +116,9 @@ p {
 }
 
 .gold-line {
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary-dark), var(--color-primary), var(--color-primary-light));
     margin: 1.5rem auto;
     border-radius: 2px;
 }
@@ -167,6 +167,7 @@ p {
 .card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
+    border-left: 3px solid rgba(30, 95, 170, 0.25);
     border-radius: var(--radius);
     padding: 2rem;
     transition: all var(--transition);
@@ -174,7 +175,8 @@ p {
 
 .card:hover {
     background: var(--color-bg-card-hover);
-    border-color: var(--color-primary-dark);
+    border-color: var(--color-primary);
+    border-left-color: var(--color-primary);
     transform: translateY(-4px);
     box-shadow: var(--shadow);
 }

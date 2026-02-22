@@ -2,6 +2,7 @@
   <div class="news-page">
     <section class="page-hero">
       <div class="container">
+        <ZurichWappen :size="28" :opacity="0.4" class="fade-in" />
         <h1 class="fade-in">News</h1>
         <div class="gold-line"></div>
         <p class="fade-in">Neuigkeiten und Updates aus dem Schwanen Club.</p>
@@ -26,6 +27,8 @@
 </template>
 
 <script setup>
+import ZurichWappen from '../components/ZurichWappen.vue'
+
 const posts = [
   {
     date: '22. Feb 2026',
@@ -83,7 +86,8 @@ const posts = [
   padding: 10rem 0 4rem;
   text-align: center;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(30, 95, 170, 0.06) 0%, transparent 60%);
+    linear-gradient(180deg, rgba(30, 95, 170, 0.12) 0%, rgba(30, 95, 170, 0.04) 60%, transparent 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(30, 95, 170, 0.10) 0%, transparent 60%);
 }
 
 .page-hero h1 {

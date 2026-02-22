@@ -2,6 +2,7 @@
   <div class="kalender-page">
     <section class="page-hero">
       <div class="container">
+        <ZurichWappen :size="28" :opacity="0.4" class="fade-in" />
         <h1 class="fade-in">Kalender</h1>
         <div class="gold-line"></div>
         <p class="fade-in">Unsere kommenden und vergangenen Events.</p>
@@ -58,6 +59,8 @@
 </template>
 
 <script setup>
+import ZurichWappen from '../components/ZurichWappen.vue'
+
 const upcomingEvents = [
   {
     day: '14',
@@ -126,7 +129,8 @@ const pastEvents = [
   padding: 10rem 0 4rem;
   text-align: center;
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(30, 95, 170, 0.06) 0%, transparent 60%);
+    linear-gradient(180deg, rgba(30, 95, 170, 0.12) 0%, rgba(30, 95, 170, 0.04) 60%, transparent 100%),
+    radial-gradient(ellipse at 50% 0%, rgba(30, 95, 170, 0.10) 0%, transparent 60%);
 }
 
 .page-hero h1 {

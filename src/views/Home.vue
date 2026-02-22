@@ -4,7 +4,10 @@
     <section class="hero">
       <div class="hero-bg"></div>
       <div class="hero-content container">
-        <div class="hero-badge fade-in">EST. 2016 · ZÜRICH</div>
+        <div class="hero-badge fade-in">
+          <ZurichWappen :size="16" :opacity="0.8" />
+          EST. 2016 · ZÜRICH
+        </div>
         <h1 class="fade-in">Schwanen<br /><span class="gold">Club</span></h1>
         <p class="hero-subtitle fade-in">
           Mehr als ein Verein — eine Gemeinschaft für unvergessliche Momente in Zürich.
@@ -17,12 +20,19 @@
           <img src="/2PawMmk.gif" alt="Swan" class="swan-gif" />
         </div>
       </div>
+      <div class="hero-wappen-left fade-in">
+        <ZurichWappen :size="80" :opacity="0.06" />
+      </div>
+      <div class="hero-wappen-right fade-in">
+        <ZurichWappen :size="60" :opacity="0.04" />
+      </div>
     </section>
 
     <!-- About Section -->
-    <section class="section">
+    <section class="section about-section">
       <div class="container">
         <div class="section-header">
+          <ZurichWappen :size="32" :opacity="0.5" />
           <h2>Über Uns</h2>
           <div class="gold-line"></div>
           <p>
@@ -56,6 +66,8 @@
 </template>
 
 <script setup>
+import ZurichWappen from '../components/ZurichWappen.vue'
+
 const features = [
   {
     icon: '🎉',
@@ -89,8 +101,9 @@ const features = [
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(30, 95, 170, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(176, 190, 201, 0.08) 0%, transparent 50%);
+    linear-gradient(180deg, rgba(30, 95, 170, 0.10) 0%, rgba(30, 95, 170, 0.03) 40%, transparent 70%),
+    radial-gradient(ellipse at 20% 50%, rgba(30, 95, 170, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(58, 126, 213, 0.10) 0%, transparent 50%);
 }
 
 .hero-content {
@@ -101,13 +114,16 @@ const features = [
 }
 
 .hero-badge {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   padding: 0.5rem 1.5rem;
-  border: 1px solid var(--color-border);
+  border: 1px solid rgba(30, 95, 170, 0.25);
+  background: rgba(30, 95, 170, 0.06);
   border-radius: 50px;
   font-size: 0.75rem;
   letter-spacing: 3px;
-  color: var(--color-text-muted);
+  color: var(--color-primary);
   margin-bottom: 2rem;
 }
 
@@ -151,6 +167,29 @@ const features = [
   filter: drop-shadow(0 0 40px rgba(30, 95, 170, 0.15));
 }
 
+.hero-wappen-left {
+  position: absolute;
+  left: 5%;
+  top: 30%;
+  pointer-events: none;
+}
+
+.hero-wappen-right {
+  position: absolute;
+  right: 8%;
+  bottom: 20%;
+  pointer-events: none;
+}
+
+/* About */
+.about-section {
+  background: linear-gradient(180deg, transparent 0%, rgba(30, 95, 170, 0.04) 50%, transparent 100%);
+}
+
+.section-header .zurich-wappen {
+  margin-bottom: 0.75rem;
+}
+
 /* Features */
 .features-grid {
   display: grid;
@@ -179,11 +218,23 @@ const features = [
 }
 
 .cta-card {
-  background: linear-gradient(135deg, rgba(30, 95, 170, 0.08), rgba(30, 95, 170, 0.02));
-  border: 1px solid rgba(30, 95, 170, 0.15);
+  background: linear-gradient(135deg, rgba(30, 95, 170, 0.15), rgba(30, 95, 170, 0.06));
+  border: 1px solid rgba(30, 95, 170, 0.25);
   border-radius: var(--radius);
   padding: 4rem 2rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--color-primary-dark), var(--color-primary), var(--color-primary-light));
 }
 
 .cta-card h2 {
