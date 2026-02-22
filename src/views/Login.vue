@@ -22,27 +22,14 @@
             </div>
           </div>
 
-          <!-- Email link sent -->
-          <div v-else-if="linkSent" class="link-sent">
-            <span class="login-icon">📧</span>
-            <h3>Link gesendet!</h3>
-            <p>
-              Wir haben einen Anmeldelink an <strong>{{ email }}</strong> geschickt.
-              Bitte prüfe dein Postfach und klicke auf den Link.
-            </p>
-            <button @click="linkSent = false; email = ''" class="btn btn-outline">
-              Andere E-Mail verwenden
-            </button>
-          </div>
-
           <!-- Login form -->
           <div v-else>
             <span class="login-icon">🦢</span>
             <h3>Anmelden</h3>
             <p class="login-desc">
-              Gib deine E-Mail-Adresse ein. Du erhältst einen Anmeldelink per E-Mail — kein Passwort nötig.
+              Melde dich mit deinen Zugangsdaten an.
             </p>
-            <form @submit.prevent="sendSignInLink" class="login-form">
+            <form @submit.prevent="handleLogin" class="login-form">
               <div class="form-group">
                 <label for="email">E-Mail</label>
                 <input
@@ -54,14 +41,25 @@
                   :disabled="sending"
                 />
               </div>
+              <div class="form-group">
+                <label for="password">Passwort</label>
+                <input
+                  id="password"
+                  v-model="password"
+                  type="password"
+                  placeholder="Dein Passwort"
+                  required
+                  :disabled="sending"
+                />
+              </div>
               <button type="submit" class="btn btn-primary" style="width: 100%" :disabled="sending">
-                {{ sending ? 'Sende...' : 'Anmeldelink senden' }}
+                {{ sending ? 'Anmelden...' : 'Anmelden' }}
               </button>
             </form>
             <p v-if="error" class="error-msg">{{ error }}</p>
             <p class="login-note">
               Nur eingeladene Mitglieder können sich anmelden.
-              <router-link to="/kontakt">Kontaktiere uns</router-link> für eine Einladung.
+              <router-link to="/kontakt">Kontaktiere uns</router-link> für einen Zugang.
             </p>
           </div>
         </div>
@@ -72,37 +70,31 @@
 
 <script setup>
 import { ref } from 'vue'
-import { sendSignInLinkToEmail } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase'
 import { useAuth } from '../composables/useAuth'
 
 const { user, logout } = useAuth()
 
 const email = ref('')
-const linkSent = ref(false)
+const password = ref('')
 const sending = ref(false)
 const error = ref('')
 
-const actionCodeSettings = {
-  // URL to redirect to after clicking the email link
-  url: window.location.origin + (import.meta.env.BASE_URL || '/') + 'login',
-  handleCodeInApp: true,
-}
-
-async function sendSignInLink() {
+async function handleLogin() {
   sending.value = true
   error.value = ''
 
   try {
-    await sendSignInLinkToEmail(auth, email.value, actionCodeSettings)
-    window.localStorage.setItem('emailForSignIn', email.value)
-    linkSent.value = true
+    await signInWithEmailAndPassword(auth, email.value, password.value)
   } catch (err) {
     console.error(err)
-    if (err.code === 'auth/unauthorized-continue-uri') {
-      error.value = 'Firebase ist noch nicht konfiguriert. Bitte Firebase-Projekt einrichten.'
+    if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password' || err.code === 'auth/user-not-found') {
+      error.value = 'E-Mail oder Passwort ist falsch.'
+    } else if (err.code === 'auth/too-many-requests') {
+      error.value = 'Zu viele Versuche. Bitte warte einen Moment.'
     } else {
-      error.value = 'Fehler beim Senden des Links. Bitte versuche es erneut.'
+      error.value = 'Fehler bei der Anmeldung. Bitte versuche es erneut.'
     }
   } finally {
     sending.value = false

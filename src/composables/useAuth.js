@@ -1,5 +1,5 @@
 import { ref, onMounted } from 'vue'
-import { onAuthStateChanged, signOut, isSignInWithEmailLink, signInWithEmailLink } from 'firebase/auth'
+import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { doc, getDoc } from 'firebase/firestore'
 import { auth, db } from '../firebase'
 
@@ -10,24 +10,6 @@ const isAdmin = ref(false)
 
 export function useAuth() {
     onMounted(() => {
-        // Check if arriving from an email sign-in link
-        if (isSignInWithEmailLink(auth, window.location.href)) {
-            let email = window.localStorage.getItem('emailForSignIn')
-            if (!email) {
-                email = window.prompt('Bitte gib deine E-Mail-Adresse zur Bestätigung ein:')
-            }
-            if (email) {
-                signInWithEmailLink(auth, email, window.location.href)
-                    .then((result) => {
-                        window.localStorage.removeItem('emailForSignIn')
-                        user.value = result.user
-                    })
-                    .catch((error) => {
-                        console.error('Sign-in error:', error)
-                    })
-            }
-        }
-
         onAuthStateChanged(auth, async (firebaseUser) => {
             user.value = firebaseUser
             if (firebaseUser) {
